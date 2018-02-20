@@ -1,0 +1,48 @@
+﻿<html>
+	<head>
+		<title>Страница голосования</title>
+		<style>
+			table.item {
+				float:left;
+				width:13em;
+
+				border: 1px solid green;
+				margin-right:1em;
+				margin-bottom:1em
+			}
+			table.item img {
+				width:12em
+			}
+			table.item td.img {
+				height:400px;
+			
+			}
+			table.item td {
+				text-align:center
+			}
+			
+		</style>
+	</head>
+	<body>
+		<a href="/">Список клиентов</a><br/>
+		{% for client in clients %}
+		<table class="item">
+			<tr><td class="img"><img src="/media/{{ client.photo }}"/></td></tr>
+			<tr><td>Текущий счет:&nbsp;{{ client.rating }}</td></tr>
+			<tr><td>{{ client.id }}</td></tr>
+
+		</table>
+		{% endfor %}
+		
+		<script language="javascript">
+			for (i = 0;i<document.getElementsByTagName('table').length;i++) {
+				if (Number(document.getElementsByTagName('table')[i].getElementsByTagName('td')[1].innerText.substring(14))<10) {
+					cID = document.getElementsByTagName('table')[i].getElementsByTagName('td')[2].innerText
+					document.getElementsByTagName('table')[i].getElementsByTagName('td')[2].innerHTML = '<a href="?cID='+cID+'">+1</a>';
+				} else {
+					document.getElementsByTagName('table')[i].getElementsByTagName('td')[2].innerHTML = '&nbsp;';
+				}
+			}
+		</script>
+	</body>
+</html>
