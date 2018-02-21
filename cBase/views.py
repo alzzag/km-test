@@ -3,6 +3,24 @@ from django.shortcuts import render
 from .models import Client
 from datetime import datetime
 from django.http import HttpResponse
+from cBase.tasks import exportExcel
+import json
+
+def poll_for_download(request):
+	task_id = request.GET.get('task_id', '')
+	result = exportExcel.AsyncResult(task_id)
+	#response = HttpResponse(content_type='application/json')
+	if result.ready():
+		#response.write(json.dumps({'filename': result.get()}))
+		response = HttpResponse(json.dumps({"filename": result.get()}))
+	else:
+		#response.write(json.dumps({'filename': 'qwe'}))
+		response = HttpResponse(json.dumps({"filename": None}))
+	return response
+    
+def downloadExcel(request):
+	task = exportExcel.delay()
+	return render(request, 'cBase/downloading.html', {'task_id' : task.task_id})
 
 def photos(request):
 	

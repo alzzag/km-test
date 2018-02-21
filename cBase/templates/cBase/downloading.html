@@ -1,0 +1,33 @@
+<html>
+<head>
+	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <title>Экспорт в excel</title>
+</head>
+<body>
+<a href="/">Список клиентов</a><br/>
+<a href="/photos">Страница голосования</a><br/>
+<div id="content"><span id="loading">Идёт загрузка</span></div>
+
+<script>
+     $(function(){
+        $.ajaxSetup({ cache: false, timeout: 360000 });
+        var url = "/poll_for_download/";
+        var i = 0;
+        (function worker() {
+            $.getJSON(url+"?task_id={{ task_id }}", function(data){
+                if(data.filename) {
+					$("#content").html("Файл готов - <a href="+'"/media/download/'+data.filename+'"'+">скачать</a>");
+
+                } else {
+                    setTimeout(worker, 5000);
+                }
+            });
+        })();
+        setInterval(function() {
+            i = ++i % 4;
+            $("#loading").html("Идёт загрузка"+Array(i+1).join("."));
+        }, 1000);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+import celery2 as celery

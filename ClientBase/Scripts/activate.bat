@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=D:\KM_test\ClientBase"
+set "VIRTUAL_ENV=D:\km-test\ClientBase"
 
 if not defined PROMPT (
     set "PROMPT=$P$G"
