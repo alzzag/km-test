@@ -31,6 +31,7 @@
 				<td>{{ client.name }}</td>
 				<td>{{ client.age }}</td>
 				<td>{{ client.birthday }}</td>
+                {# Вопрос 5: почему не исп. MEDIA_URL? #}
 				<td><img width=100 src="/media/{{ client.photo }}"/></td>
 			</tr>
 		{% endfor %}
