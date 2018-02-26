@@ -1,4 +1,5 @@
 from celery.decorators import task
+# Вопрос 6: разве так получают доступ к конфигу?
 from settings import MEDIA_ROOT, MEDIA_URL
 import os
 import xlwt

@@ -9,6 +9,7 @@ import json
 def poll_for_download(request):
 	task_id = request.GET.get('task_id', '')
 	result = exportExcel.AsyncResult(task_id)
+	# Вопрос 2: Зачем в реализации остались закомментированные строки кода?
 	#response = HttpResponse(content_type='application/json')
 	if result.ready():
 		#response.write(json.dumps({'filename': result.get()}))
@@ -27,6 +28,11 @@ def photos(request):
 	if request.GET.get('cID', '') != '':
 		c = Client.objects.get(pk=int(request.GET.get('cID', '')))
 		if c.rating<10:
+			# Вопрос 1: Что будет, если на сайте 2 кликнуть на + при уже
+			# установленном значении счетчика 9?
+			from random import randint
+			from time import sleep
+			sleep(randint(4, 10))
 			Client.objects.filter(id=int(request.GET.get('cID', ''))).update(rating=c.rating+1)
 	
 	clients = Client.objects.all()
